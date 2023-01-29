@@ -60,6 +60,8 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
           padding:
               const EdgeInsets.only(top: 20, right: 20, left: 20, bottom: 0),
           child: ListView(
+            physics: const BouncingScrollPhysics(
+                parent: AlwaysScrollableScrollPhysics()),
             children: [
               TextField(
                 keyboardType: TextInputType.multiline,

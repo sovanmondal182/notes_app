@@ -60,6 +60,7 @@ class _HomeScreenState extends State<HomeScreen> {
         height: 60,
         child: ElevatedButton(
           style: ButtonStyle(
+            elevation: MaterialStateProperty.all(0),
             shape: MaterialStateProperty.all(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),

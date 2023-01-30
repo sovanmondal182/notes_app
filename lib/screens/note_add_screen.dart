@@ -24,10 +24,12 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
   ).withOpacity(0.3);
   @override
   Widget build(BuildContext context) {
-    titleController.text =
-        (widget.docs != null) ? widget.docs!['notes_title'] ?? "" : "";
-    desController.text =
-        (widget.docs != null) ? widget.docs!['notes_des'] ?? "" : "";
+    titleController.text = (widget.docs != null)
+        ? widget.docs!['notes_title'] ?? ""
+        : titleController.text;
+    desController.text = (widget.docs != null)
+        ? widget.docs!['notes_des'] ?? ""
+        : desController.text;
     String pubDate = (widget.docs != null)
         ? widget.docs!['notes_pubDate'] ?? ""
         : DateFormat('dd MMM, yyyy hh:mm a').format(now);
@@ -57,60 +59,68 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
                   )
           ],
         ),
-        body: Container(
-          padding:
-              const EdgeInsets.only(top: 20, right: 20, left: 20, bottom: 0),
-          child: ListView(
-            physics: const BouncingScrollPhysics(
-                parent: AlwaysScrollableScrollPhysics()),
-            children: [
-              TextField(
-                cursorColor: Colors.white,
-                cursorWidth: 1,
-                cursorHeight: 25,
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
-                controller: titleController,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Title',
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade200,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: TextField(
+        body: GestureDetector(
+          onHorizontalDragStart: (details) {
+            if (details.globalPosition.dx > 0) {
+              debugPrint("Dragged");
+              FocusScope.of(context).unfocus();
+            }
+          },
+          child: Container(
+            padding:
+                const EdgeInsets.only(top: 20, right: 20, left: 20, bottom: 0),
+            child: ListView(
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              children: [
+                TextField(
                   cursorColor: Colors.white,
                   cursorWidth: 1,
-                  cursorHeight: 20,
-                  autofocus: true,
+                  cursorHeight: 25,
                   keyboardType: TextInputType.multiline,
                   maxLines: null,
                   style: const TextStyle(
                     color: Colors.white,
-                    fontSize: 16,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
                   ),
-                  controller: desController,
+                  controller: titleController,
                   decoration: InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Note',
+                    hintText: 'Title',
                     hintStyle: TextStyle(
                       color: Colors.grey.shade200,
-                      fontSize: 16,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
-              ),
-            ],
+                SizedBox(
+                  height: MediaQuery.of(context).size.height,
+                  child: TextField(
+                    cursorColor: Colors.white,
+                    cursorWidth: 1,
+                    cursorHeight: 20,
+                    autofocus: true,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                    controller: desController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Note',
+                      hintStyle: TextStyle(
+                        color: Colors.grey.shade200,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         bottomNavigationBar: Padding(

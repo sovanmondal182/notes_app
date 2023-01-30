@@ -101,7 +101,7 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
                     cursorColor: Colors.white,
                     cursorWidth: 1,
                     cursorHeight: 20,
-                    autofocus: true,
+                    autofocus: (widget.docs == null) ? true : false,
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     style: const TextStyle(

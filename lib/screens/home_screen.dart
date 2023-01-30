@@ -26,32 +26,35 @@ class _HomeScreenState extends State<HomeScreen> {
         elevation: 0,
       ),
       body: SafeArea(
-        child: StreamBuilder<QuerySnapshot>(
-          stream: FirebaseFirestore.instance.collection('Notes').snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-            if (snapshot.hasData) {
-              return GridView(
-                physics: const BouncingScrollPhysics(
-                    parent: AlwaysScrollableScrollPhysics()),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2),
-                children: snapshot.data!.docs
-                    .map((note) => noteCard(() {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      NoteAddScreen(docs: note)));
-                        }, note))
-                    .toList(),
-              );
-            }
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8.0),
+          child: StreamBuilder<QuerySnapshot>(
+            stream: FirebaseFirestore.instance.collection('Notes').snapshots(),
+            builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(child: CircularProgressIndicator());
+              }
+              if (snapshot.hasData) {
+                return GridView(
+                  physics: const BouncingScrollPhysics(
+                      parent: AlwaysScrollableScrollPhysics()),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2),
+                  children: snapshot.data!.docs
+                      .map((note) => noteCard(() {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        NoteAddScreen(docs: note)));
+                          }, note))
+                      .toList(),
+                );
+              }
 
-            return const Center(child: Text('No data'));
-          },
+              return const Center(child: Text('No data'));
+            },
+          ),
         ),
       ),
       floatingActionButton: Container(

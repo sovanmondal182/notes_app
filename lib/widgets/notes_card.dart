@@ -17,8 +17,8 @@ Widget noteCard(Function()? onTap, QueryDocumentSnapshot doc) {
     child: GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.all(10),
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        margin: const EdgeInsets.all(5),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         decoration: BoxDecoration(
           color: Color.fromRGBO(
             Random().nextInt(255),
@@ -49,7 +49,7 @@ Widget noteCard(Function()? onTap, QueryDocumentSnapshot doc) {
                         height: 0,
                       ),
                 (doc["notes_title"] != "")
-                    ? const SizedBox(height: 10)
+                    ? const SizedBox(height: 5)
                     : Container(height: 0),
                 (doc["notes_des"] != "")
                     ? Text(

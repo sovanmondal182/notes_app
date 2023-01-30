@@ -16,6 +16,12 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
   TextEditingController titleController = TextEditingController();
   TextEditingController desController = TextEditingController();
   DateTime now = DateTime.now();
+  Color scaffoldBackgroundColor = Color.fromRGBO(
+    Random().nextInt(255),
+    Random().nextInt(255),
+    Random().nextInt(255),
+    1,
+  ).withOpacity(0.3);
   @override
   Widget build(BuildContext context) {
     titleController.text =
@@ -30,12 +36,7 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
     return WillPopScope(
       onWillPop: () => onWillpop(pubDateNow, context, pubDate),
       child: Scaffold(
-        backgroundColor: Color.fromRGBO(
-          Random().nextInt(255),
-          Random().nextInt(255),
-          Random().nextInt(255),
-          1,
-        ).withOpacity(0.3),
+        backgroundColor: scaffoldBackgroundColor,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
@@ -64,6 +65,9 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
                 parent: AlwaysScrollableScrollPhysics()),
             children: [
               TextField(
+                cursorColor: Colors.white,
+                cursorWidth: 1,
+                cursorHeight: 25,
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
                 style: const TextStyle(
@@ -82,20 +86,27 @@ class _NoteAddScreenState extends State<NoteAddScreen> {
                   ),
                 ),
               ),
-              TextField(
-                keyboardType: TextInputType.multiline,
-                maxLines: null,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                ),
-                controller: desController,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: 'Note',
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade200,
+              SizedBox(
+                height: MediaQuery.of(context).size.height,
+                child: TextField(
+                  cursorColor: Colors.white,
+                  cursorWidth: 1,
+                  cursorHeight: 20,
+                  autofocus: true,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                  style: const TextStyle(
+                    color: Colors.white,
                     fontSize: 16,
+                  ),
+                  controller: desController,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Note',
+                    hintStyle: TextStyle(
+                      color: Colors.grey.shade200,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
